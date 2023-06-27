@@ -1,3 +1,29 @@
-<% @fields.each do |field| %>
-    <%= field.name %>
-<% end %>
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-4">
+      <div class="d-flex gap-4 mb-4">
+        <h3>All Fields</h3>
+        <a class="btn btn-primary" role="button" href="/fields/new">Create</a>
+      </div>
+      <% if @fields.blank? %>
+        😟 There are no fields yet. <a href="/fields/new">Add one</a>.
+      <% else %>
+        <div class="card">
+        <ul class="list-group list-group-flush">
+          <% @fields.each do |field| %>
+            <li class="list-group-item" data-test-field-id=<%= field.id %>>
+              <a href="/fields/<%= field.id %>" style="text-decoration: none;">
+                <h5><%= field.name %></h5>
+              </a>
+              <i class="fa-solid fa-expand pe-2"></i><%= field.area %> m²
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    </div>
+    <div class="col-8">
+      Map is going to be here
+    </div>
+  </div>
+</div>

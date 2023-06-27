@@ -2,6 +2,6 @@ FactoryBot.define do
   factory(:field) do
     name { Faker::Name }
     # shape
-    area { 0..5 }
+    area { rand(1..1000) }
   end
 end
