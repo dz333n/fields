@@ -1,0 +1,18 @@
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-4">
+      <a href="/fields">
+        <i class="fa-sharp fa-solid fa-arrow-left"></i>
+        All Fields
+      </a>
+      <h3 class="mt-4"><%= @field.name %></h3>
+      <i class="fa-solid fa-expand pe-2"></i><%= @field.area %> m²
+      <br/>
+      <i class="fa-solid fa-code mt-4"></i> GeoJSON:
+      <pre class="mt-2"><%= JSON.pretty_generate(RGeo::GeoJSON.encode(@field.shape)) %></pre>
+    </div>
+    <div class="col-8">
+      Map is going to be here
+    </div>
+  </div>
+</div>
