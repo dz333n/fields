@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 FROM ruby:3.2.1
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client chromium-driver chromium
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client chromium-driver chromium libgeos-dev
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock

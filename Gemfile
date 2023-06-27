@@ -10,6 +10,7 @@ gem 'rubocop', require: false
 gem 'bootstrap', '~> 5.3.0.alpha3'
 gem "font-awesome-sass", "~> 6.4.0"
 gem 'rgeo-geojson'
+gem 'rgeo'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"

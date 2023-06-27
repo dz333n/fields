@@ -10,6 +10,11 @@ class FieldsController < ApplicationController
   def new; end
 
   def create
-    render json: { id: 1 }
+    field = ::Fields::Create.new(
+      name: params[:name],
+      polygons: params[:polygons]
+    ).call
+
+    render json: { id: field.id }
   end
 end

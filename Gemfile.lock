@@ -300,6 +300,7 @@ DEPENDENCIES
   pg
   puma (~> 5.0)
   rails (~> 7.0.5)
+  rgeo
   rgeo-geojson
   rspec-rails
   rubocop
