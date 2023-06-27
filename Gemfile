@@ -7,6 +7,7 @@ gem 'activerecord-postgis-adapter'
 gem 'rgeo-geojson'
 gem 'pg'
 gem 'rubocop', require: false
+gem 'bootstrap', '~> 5.3.0.alpha3'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"
