@@ -1,0 +1,24 @@
+<div data-controller="field-create-map">
+  <%= form_with id: 'create-field-form', scope: "field", url: "/fields" do |form| %>  
+    <div class="container pt-4">
+      <div class="row">
+        <div class="col-4 form-group">
+          <%= render 'components/back_to_fields_button' %>
+          <h3 class="mt-4">🆕 Create field</h3>
+          <br/>
+          <%= form.text_field :name, placeholder: 'Field name', class: 'form-control', required: true %>
+          <br />
+          <div class="alert alert-danger d-none" role="alert">
+            Error text
+          </div>
+          <div class="d-flex justify-content-end">
+            <%= form.submit class: 'btn btn-primary', value: "Create" %> 
+          </div>
+        </div>
+        <div class="col-8">
+          <div data-field-create-map-target="container" class="map"></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

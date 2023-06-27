@@ -9,15 +9,15 @@ export default class extends Controller {
     const geoJsonString = this.data.get('geoJson');
     const geoJson = JSON.parse(geoJsonString);
 
-    var map = L.map(this.containerTarget);
+    this.map = L.map(this.containerTarget);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    }).addTo(this.map);
 
-    const geoJsonOnMap = L.geoJson(geoJson).addTo(map);
-    map.fitBounds(geoJsonOnMap.getBounds());
+    const geoJsonOnMap = L.geoJson(geoJson).addTo(this.map);
+    this.map.fitBounds(geoJsonOnMap.getBounds());
   }
 
   disconnect() {
