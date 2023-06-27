@@ -1,3 +1,4 @@
+<% geo_json = ::Fields::MergeFields.new(fields: @fields).call %>
 <div class="container pt-4">
   <div class="row">
     <div class="col-4">
@@ -23,7 +24,9 @@
     <% end %>
     </div>
     <div class="col-8">
-      Map is going to be here
+      <div data-controller="maps" data-maps-geo-json="<%= geo_json.to_json %>">
+        <div data-maps-target="container" class="map"></div>
+      </div>
     </div>
   </div>
 </div>
