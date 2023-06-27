@@ -30,7 +30,6 @@ RSpec.describe 'All Fields', type: :system do
     subject
     element = find("[data-controller='maps']")
     data_tag_value = element['data-maps-geo-json']
-    puts({data_tag_value: data_tag_value})
     expect(data_tag_value).to eq(mocked_geojson.to_json) 
   end
 
