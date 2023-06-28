@@ -7,6 +7,7 @@ RSpec.describe 'Delete Field', type: :system, js: true do
     visit "/fields/#{field.id}"
     # FIXME: for some reason clicking does not work instantly
     #        (actually only 2 times click is required for confirming deletion)
+    #        Maybe related to JS / StimulusJS
     10.times do
       selector = '#delete-field-button'
       break unless page.has_css?(selector) 
