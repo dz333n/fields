@@ -17,4 +17,10 @@ class FieldsController < ApplicationController
 
     render json: { id: field.id }
   end
+
+  def destroy
+    field = Field.find_by(id: params[:id])
+    field.destroy!
+    head :ok
+  end
 end

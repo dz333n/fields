@@ -4,9 +4,25 @@
     <div class="col-4">
       <%= render 'components/back_to_fields_button' %>
       <h3 class="mt-4"><%= @field.name %></h3>
-      <i class="fa-solid fa-expand pe-2"></i><%= @field.area %> m²
-      <br/>
-      <i class="fa-solid fa-code mt-4"></i> GeoJSON:
+      <div class="mt-4 d-flex gap-2">
+        <a class="btn btn-secondary" href="/fields/<%= @field.id %>/edit" role="button">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        <div data-controller="delete" data-delete-id="<%= @field.id %>">
+          <button
+            data-delete-target="container"
+            data-action="delete#nextStep"
+            type="button"
+            class="btn btn-danger"
+            id="delete-field-button"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      <i class="fa-solid fa-expand pe-2 mt-4"></i><%= @field.area %> m²
+      <br />
+      <i class="fa-solid fa-code mt-2"></i> GeoJSON:
       <pre class="mt-2"><%= JSON.pretty_generate(geo_json) %></pre>
     </div>
     <div class="col-8">
