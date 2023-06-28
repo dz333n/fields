@@ -9,19 +9,19 @@ module Fields
     end
 
     def call
-      multipolygon = polygons_were_edited? ? convert_polygons : original_shape
-
-      area = ::GeoJson::CalculateArea.new(RGeo::GeoJSON.encode(multipolygon)).call
+      if polygons_were_edited?
+        multipolygon = convert_polygons
+        area = ::GeoJson::CalculateArea.new(RGeo::GeoJSON.encode(multipolygon)).call
+      else
+        multipolygon = field.shape
+        area = field.area
+      end
 
       field.update!(
         name: name,
         shape: multipolygon,
         area: area
       )
-    end
-    
-    def original_shape
-      field.shape
     end
 
     def convert_polygons
