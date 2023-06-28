@@ -1,23 +1,25 @@
-import { Controller } from "@hotwired/stimulus"
-import L from "leaflet"
+import { Controller } from "@hotwired/stimulus";
+import L from "leaflet";
+import { centerMap, createMap } from "../utils";
 
 // Connects to data-controller="maps"
 export default class extends Controller {
-  static targets = ["container"]
+  static targets = ["container"];
 
   connect() {
-    const geoJsonString = this.data.get('geoJson');
+    this.map = createMap(this.containerTarget);
+
+    const geoJsonString = this.data.get("geoJson");
     const geoJson = JSON.parse(geoJsonString);
-
-    this.map = L.map(this.containerTarget);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(this.map);
-
     const geoJsonOnMap = L.geoJson(geoJson).addTo(this.map);
-    this.map.fitBounds(geoJsonOnMap.getBounds());
+
+    const objectsCount =
+      geoJson.coordinates?.length || geoJson.features?.length || 0;
+    if (objectsCount >= 1) {
+      this.map.fitBounds(geoJsonOnMap.getBounds());
+    } else {
+      centerMap(this.map);
+    }
   }
 
   disconnect() {

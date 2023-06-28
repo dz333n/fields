@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 import L from "leaflet";
 import "@geoman-io/leaflet-geoman-free";
-import { centerMap, createMap, enableDrawing } from "../utils";
+import { createMap, enableDrawing } from "../utils";
 
 // Connects to data-controller="edit"
 export default class extends Controller {
@@ -10,10 +10,15 @@ export default class extends Controller {
   connect() {
     this.map = createMap(this.containerTarget);
 
-    centerMap(this.map);
+    const geoJsonString = this.data.get("geoJson");
+    const geoJson = JSON.parse(geoJsonString);
+    const geoJsonOnMap = L.geoJson(geoJson).addTo(this.map);
+
+    this.map.fitBounds(geoJsonOnMap.getBounds());
+
     enableDrawing(this.map);
 
-    const form = document.getElementById("create-field-form");
+    const form = document.getElementById("edit-field-form");
     form.addEventListener("submit", this.handleSubmit.bind(this));
   }
 
@@ -23,15 +28,12 @@ export default class extends Controller {
     this.setFormDisabled(true);
 
     const layers = this.map.pm.getGeomanDrawLayers();
-    if (layers.length === 0) {
-      this.showError("There are no layers drawn on the map!");
-      return;
-    }
 
     const polygons = layers.map((layer) => layer.toGeoJSON());
+    const fieldId = this.data.get("id");
 
-    fetch("/fields", {
-      method: "POST",
+    fetch(`/fields/${fieldId}`, {
+      method: "PUT",
       body: JSON.stringify({
         polygons,
         name: document.getElementById("field_name").value,
@@ -59,7 +61,7 @@ export default class extends Controller {
   }
 
   setFormDisabled(disabled) {
-    const form = document.getElementById("create-field-form");
+    const form = document.getElementById("edit-field-form");
     form.disabled = disabled;
   }
 
