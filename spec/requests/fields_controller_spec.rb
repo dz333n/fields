@@ -127,5 +127,114 @@ describe '/fields', type: :request do
       expect(new_field.area).to eq(precalculated_area)
       expect(RGeo::GeoJSON.encode(new_field.shape)).to eq(result_multipolygon.with_indifferent_access)
     end
+
+    context "when leaflat returned a multipolygon" do
+      let(:feature) do
+        {
+          "type": "Feature",
+          "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                  [
+                      [
+                          [
+                              -66.072876,
+                              66.618608
+                          ],
+                          [
+                              -65.773053,
+                              66.592027
+                          ],
+                          [
+                              -65.883691,
+                              66.75506
+                          ],
+                          [
+                              -66.072876,
+                              66.618608
+                          ]
+                      ]
+                  ],
+                  [
+                      [
+                          [
+                              -65.883691,
+                              66.75506
+                          ],
+                          [
+                              -65.396048,
+                              66.851579
+                          ],
+                          [
+                              -65.699341,
+                              66.887301
+                          ],
+                          [
+                              -65.883691,
+                              66.75506
+                          ]
+                      ]
+                  ],
+                  [
+                      [
+                          [
+                              -65.773053,
+                              66.592027
+                          ],
+                          [
+                              -65.556519,
+                              66.572812
+                          ],
+                          [
+                              -65.370345,
+                              66.687511
+                          ],
+                          [
+                              -65.773053,
+                              66.592027
+                          ]
+                      ]
+                  ],
+                  [
+                      [
+                          [
+                              -65.396048,
+                              66.851579
+                          ],
+                          [
+                              -65.370345,
+                              66.687511
+                          ],
+                          [
+                              -65.150024,
+                              66.822563
+                          ],
+                          [
+                              -65.396048,
+                              66.851579
+                          ]
+                      ]
+                  ]
+              ]
+          }
+      }
+      end
+      let(:params) do
+        {
+          "polygons": [
+            feature
+          ],
+          "name": name
+        }
+      end
+      
+      it 'saves it directly into database' do
+        subject
+        response_json = JSON.parse(response.body)
+        new_field = Field.find(response_json['id'])
+        expect(new_field).to be_present
+        expect(RGeo::GeoJSON.encode(new_field.shape)).to eq(feature[:geometry].with_indifferent_access)
+      end
+    end
   end
 end

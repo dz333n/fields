@@ -8,7 +8,7 @@ module Fields
     end
 
     def call
-      multipolygon = ::GeoJson::PolygonsToMultipolygon.new(polygons).call
+      multipolygon = ::GeoJson::MergePolygonsIntoMultipolygon.new(polygons).call
       area = ::GeoJson::CalculateArea.new(RGeo::GeoJSON.encode(multipolygon)).call
 
       Field.create!(

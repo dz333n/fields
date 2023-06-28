@@ -25,7 +25,7 @@ module Fields
     end
 
     def convert_polygons
-      ::GeoJson::PolygonsToMultipolygon.new(polygons).call
+      ::GeoJson::MergePolygonsIntoMultipolygon.new(polygons).call
     end
 
     def polygons_were_edited?
