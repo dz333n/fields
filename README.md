@@ -10,11 +10,11 @@ Leaflet is used for maps renderer. For drawing options using [Leflet-Geoman](htt
 
 ### Tests
 
-It has pages with simple logic covered with Capybara tests, more complex logic covered with unit tests and some medium-complexity API logic covered with requests tests.
+The projects has pages with simple logic covered with Capybara tests, more complex logic covered with unit tests and some medium-complexity API logic covered with requests tests.
 
 # Project setup
 
-1. Install Docker/Docker-Compose on your system. The versions were used to develop this projects:
+The Docker/docker-compose versions were used to develop this project:
 
 ```
 > docker --version
@@ -24,43 +24,17 @@ Docker version 24.0.2, build cb74dfc
 Docker Compose version v2.18.1
 ```
 
-2. **If never run project previously** database setup needed:
-
-```bash
-docker-compose run web rake db:create
-```
-
-⏰ This will also trigger the images building process, so it may take some time.
-
-3. **Done.** Now you are ready to run the project locally or run tests.
-
 # Run project locally
 
-1. ⚠️ Complete project setup
-2. Run the migrations
-
-```bash
-docker-compose run web rails db:migrate RAILS_ENV=development
-```
-
-3. Start the project
+1. Run this command:
 
 ```bash
 docker-compose up
 ```
 
-4. **Done.** At this point you should be able to access the website locally at http://localhost:3000
+2. **Done.** At this point you should be able to access the website locally at http://localhost:3000
 
 # Run tests
-
-1. ⚠️ Complete project setup
-2. Run the migrations
-
-```bash
-docker-compose run web rails db:migrate RAILS_ENV=test
-```
-
-3. Run the tests
 
 ```bash
 docker-compose run web rspec
